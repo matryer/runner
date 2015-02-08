@@ -8,13 +8,13 @@ import (
 // code should stop.
 type S func() bool
 
-// F is a function that wraps code and exposes the
-// S function.
-type F func(S) error
+// Routine is a goroutine capable of calling the
+// shouldStop S function.
+type Routine func(S) error
 
 // Go executes the function in a goroutine and returns a
 // Task capable of stopping the execution.
-func Go(fn F) *Task {
+func Go(fn Routine) *Task {
 	t := &Task{
 		stopChan: make(chan struct{}),
 		running:  true,
