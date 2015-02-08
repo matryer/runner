@@ -39,7 +39,7 @@ func Go(fn F) *Task {
 	return t
 }
 
-// Task represents a goroutine started with Run.
+// Task represents an interruptable goroutine.
 type Task struct {
 	lock       sync.RWMutex
 	stopChan   chan struct{}
