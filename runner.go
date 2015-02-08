@@ -5,7 +5,7 @@ import (
 )
 
 // S is a function that will return true if the
-// code should stop.
+// goroutine should stop executing.
 type S func() bool
 
 // Go executes the function in a goroutine and returns a
