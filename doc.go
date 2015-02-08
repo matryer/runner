@@ -4,7 +4,7 @@
 //       for {
 //         // do some work
 //         if shouldStop() {
-//     	     break
+//         break
 //         }
 //       }
 //       return nil
