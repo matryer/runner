@@ -8,13 +8,9 @@ import (
 // code should stop.
 type S func() bool
 
-// Routine is a goroutine capable of calling the
-// shouldStop S function.
-type Routine func(S) error
-
 // Go executes the function in a goroutine and returns a
 // Task capable of stopping the execution.
-func Go(fn Routine) *Task {
+func Go(fn func(S) error) *Task {
 	t := &Task{
 		stopChan: make(chan struct{}),
 		running:  true,
