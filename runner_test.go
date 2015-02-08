@@ -54,3 +54,36 @@ func TestRunErr(t *testing.T) {
 	}
 
 }
+
+func TestRunThen(t *testing.T) {
+	is := is.New(t)
+
+	var calls []string
+
+	task := runner.Go(func(shouldStop runner.S) error {
+		calls = append(calls, "main")
+		time.Sleep(500 * time.Millisecond)
+		return nil
+	})
+	thenReturn := task.Then(func() {
+		calls = append(calls, "then1")
+	})
+	thenReturn2 := thenReturn.Then(func() {
+		calls = append(calls, "then2")
+	})
+	is.Equal(task, thenReturn)
+	is.Equal(task, thenReturn2)
+
+	task.Stop()
+	select {
+	case <-task.StopChan():
+	case <-time.After(2 * time.Second):
+		is.Fail("timed out")
+	}
+
+	is.Equal(len(calls), 3)
+	is.Equal(calls[0], "main")
+	is.Equal(calls[1], "then1")
+	is.Equal(calls[2], "then2")
+
+}

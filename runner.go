@@ -29,6 +29,12 @@ func Go(fn func(S) error) *Task {
 		t.lock.Lock()
 		t.err = err
 		t.running = false
+
+		// run then functions
+		for _, then := range t.thens {
+			then()
+		}
+
 		close(t.stopChan)
 		t.lock.Unlock()
 	}()
@@ -42,6 +48,18 @@ type Task struct {
 	shouldStop bool
 	running    bool
 	err        error
+	thens      []func()
+}
+
+// Then adds a deferred statement that will be run when
+// the task has finished or been stopped.
+// Then functions are called in the order in which they
+// are added (unlike defer statements).
+func (t *Task) Then(fn func()) *Task {
+	t.lock.Lock()
+	t.thens = append(t.thens, fn)
+	t.lock.Unlock()
+	return t
 }
 
 // Stop tells the goroutine to stop.
