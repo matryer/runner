@@ -1,7 +1,5 @@
 // Package runner provides interruptable goroutines.
 //
-// Usage
-//
 //     task := runner.Go(func(shouldStop runner.S) error {
 //       for {
 //         // do some work
@@ -9,8 +7,10 @@
 //     	     break
 //         }
 //       }
+//       return nil
 //     })
 //
+//     // meanwhile...
 //     // stop the task
 //     task.Stop()
 //
@@ -24,6 +24,6 @@
 //
 //     // check errors
 //     if task.Err() != nil {
-//     	 log.Fatalln("task failed:", task.Err())
+//       log.Fatalln("task failed:", task.Err())
 //     }
 package runner
