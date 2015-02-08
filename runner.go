@@ -49,8 +49,13 @@ type Task struct {
 }
 
 // Stop tells the goroutine to stop.
-func (t *Task) Stop() <-chan struct{} {
+func (t *Task) Stop() {
 	t.shouldStop = true
+}
+
+// StopChan gets the channel that will be closed when
+// the task has finished.
+func (t *Task) StopChan() <-chan struct{} {
 	return t.stopChan
 }
 

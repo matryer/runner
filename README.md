@@ -6,9 +6,7 @@ Interruptable goroutines.
 
 ```
 task := runner.Go(func(shouldStop runner.S) error {
-
 	// do setup work
-
   for {
 
   	// do stuff
@@ -19,9 +17,7 @@ task := runner.Go(func(shouldStop runner.S) error {
   		break
   	}
   }
-
   // do tear-down work
-
   return nil // no errors
 })
 ```
@@ -29,8 +25,9 @@ task := runner.Go(func(shouldStop runner.S) error {
 At any time, from any place, you can stop the code from executing:
 
 ```
+task.Stop()
 select {
-	case <-task.Stop():
+	case <-task.StopChan():
 		// task successfully stopped
 	case <-time.After(1 * time.Second):
 		// task didn't stop in time

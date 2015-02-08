@@ -24,8 +24,9 @@ func TestRun(t *testing.T) {
 	})
 	is.Equal(true, task.Running())
 	time.Sleep(1 * time.Second)
+	task.Stop()
 	select {
-	case <-task.Stop():
+	case <-task.StopChan():
 	case <-time.After(2 * time.Second):
 		is.Fail("timed out")
 	}
@@ -44,5 +45,12 @@ func TestRunErr(t *testing.T) {
 	time.Sleep(100 * time.Millisecond)
 	is.Equal(false, task.Running())
 	is.Equal(err, task.Err())
+
+	task.Stop()
+	select {
+	case <-task.StopChan():
+	case <-time.After(2 * time.Second):
+		is.Fail("timed out")
+	}
 
 }
