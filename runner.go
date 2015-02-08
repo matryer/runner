@@ -49,8 +49,9 @@ func (t *Task) Stop() {
 	t.shouldStop = true
 }
 
-// StopChan gets the channel that will be closed when
-// the task has finished.
+// StopChan gets the stop channel for this task.
+// Reading from this channel will block while the task is running, and will
+// unblock once the task has stopped (because the channel gets closed).
 func (t *Task) StopChan() <-chan struct{} {
 	return t.stopChan
 }
