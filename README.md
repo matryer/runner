@@ -8,7 +8,7 @@ Interruptable goroutines.
 
 ```
 task := runner.Go(func(shouldStop runner.S) error {
-	// do setup work
+  // do setup work
   defer func(){
     // do tear-down work
   }()
