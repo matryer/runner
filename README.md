@@ -2,6 +2,8 @@
 
 Interruptable goroutines.
 
+  * [API documentation](http://godoc.org/github.com/matryer/runner)
+
 ## Usage
 
 ```
