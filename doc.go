@@ -1,13 +1,17 @@
 // Package runner provides interruptable goroutines.
 //
 //     task := runner.Go(func(shouldStop runner.S) error {
+//       // do setup
+//       // defer func(){
+//       //   // do teardown
+//       // }
 //       for {
 //         // do some work
 //         if shouldStop() {
 //           break
 //         }
 //       }
-//       return nil
+//       return nil // any errors?
 //     })
 //
 //     // meanwhile...
