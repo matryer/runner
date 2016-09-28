@@ -47,11 +47,11 @@ type Task struct {
 
 // Stop tells the goroutine to stop.
 func (t *Task) Stop() {
-        // When task is stopped from a different go-routine other than the one
-        // that actually started it.
-        t.lock.Lock()
+	// When task is stopped from a different go-routine other than the one
+	// that actually started it.
+	t.lock.Lock()
 	t.shouldStop = true
-        t.lock.Unlock()
+	t.lock.Unlock()
 }
 
 // StopChan gets the stop channel for this task.
