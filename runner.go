@@ -38,7 +38,7 @@ func Go(fn func(S) error) *Task {
 
 // Task represents an interruptable goroutine.
 type Task struct {
-	id         string
+	ID         string
 	lock       sync.RWMutex
 	stopChan   chan struct{}
 	shouldStop bool
